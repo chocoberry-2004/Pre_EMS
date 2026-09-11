@@ -16,7 +16,7 @@ class isManager
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user() && Auth::user()->role === 'supervisor') {
+        if (Auth::user()?->isManager()) {
             return $next($request);
         }
         
