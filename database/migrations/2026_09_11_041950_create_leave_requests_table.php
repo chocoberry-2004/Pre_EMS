@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('employee_id')
-                ->constrained('employee')
+                ->constrained('employees')
                 ->onDelete('cascade');
 
             $table->enum('leave_type', [
@@ -35,7 +35,7 @@ return new class extends Migration
 
             $table->foreignId('approved_by')
                 ->nullable()
-                ->constrained('employee')
+                ->constrained('employees')
                 ->nullOnDelete();
 
             $table->timestamp('approved_at')->nullable();

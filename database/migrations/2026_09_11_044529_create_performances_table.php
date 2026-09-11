@@ -12,11 +12,11 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('employee_id')
-                ->constrained('employee')
+                ->constrained('employees')
                 ->cascadeOnDelete();
 
             $table->foreignId('reviewer_id')
-                ->constrained('employee')
+                ->constrained('employees')
                 ->restrictOnDelete();
 
             $table->enum('performance_rating', [

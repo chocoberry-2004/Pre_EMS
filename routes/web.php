@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\LeaveRequestController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,15 @@ Route::middleware(['auth', 'manager'])->prefix('employee')->name('employee.')->g
     Route::get("/show/{employee}", [EmployeeController::class, 'show'])->name('show');
     Route::get("/edit/{employee}", [EmployeeController::class, 'edit'])->name('edit');
     Route::put("/{employee}", [EmployeeController::class, 'update'])->name('update');
+});
+
+Route::middleware(['auth'])->prefix('leave')->name('leave.')->group(function() {
+    Route::get("/", [LeaveRequestController::class, 'index'])->name('index');
+    Route::get("/create", [LeaveRequestController::class, 'create'])->name('create');
+    Route::post("/", [LeaveRequestController::class, 'store'])->name('store');
+    Route::get("/show/{leave}", [LeaveRequestController::class, 'show'])->name('show');
+    Route::get("/edit/{leave}", [LeaveRequestController::class, 'edit'])->name('edit');
+    Route::put("/{leave}", [LeaveRequestController::class, 'update'])->name('update');
 });
 
 

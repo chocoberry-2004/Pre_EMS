@@ -25,7 +25,7 @@ class EmployeeController extends Controller
     public function create()
     {
         //
-        if(Auth::user() && Auth::user()->role === "manager") {
+        if(!Auth::user() && Auth::user()->role !== "manager") {
             abort("403", "Unauthorized access");
         }
 
@@ -38,7 +38,7 @@ class EmployeeController extends Controller
     public function store(StoreEmployeeRequest $request)
     {
         //
-        if(Auth::user() && Auth::user()->role === "manager") {
+        if(!Auth::user() && Auth::user()->role !== "manager") {
             abort("403", "Unauthorized access");
         }
 
@@ -54,7 +54,7 @@ class EmployeeController extends Controller
     public function show(Employee $employee)
     {
         //
-        if(Auth::user()) {
+        if(!Auth::user()) {
             abort("403", "Unauthorized access");
         }
 
@@ -68,7 +68,7 @@ class EmployeeController extends Controller
     public function edit(Employee $employee)
     {
         //
-        if(Auth::user()) {
+        if(!Auth::user()) {
             abort("403", "Unauthorized access");
         }
 
@@ -83,7 +83,7 @@ class EmployeeController extends Controller
     {
         //
 
-        if(Auth::user()) {
+        if(!Auth::user()) {
             abort("403", "Unauthorized access");
         }
 
@@ -102,7 +102,7 @@ class EmployeeController extends Controller
     {
         //
 
-        if(Auth::user()) {
+        if(!Auth::user()) {
             abort("403", "Unauthorized access");
         }
 
