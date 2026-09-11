@@ -23,8 +23,8 @@ class StoreEmployeeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "user_id" => ['required', 'exists:user,id'],
-            "department_id" => ['required', 'exists:departmen,id'],
+            "user_id" => ['required', 'exists:users,id'],
+            "department_id" => ['required', 'exists:departments,id'],
             "profile_url" => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp,gif', 'max:2048'],
             "phone_no" => ['string', 'required'],
             'nrc_no' => ['string', 'required'],

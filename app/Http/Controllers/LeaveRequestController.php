@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Leave_request;
 use App\Http\Requests\StoreLeave_requestRequest;
 use App\Http\Requests\UpdateLeave_requestRequest;
+use Illuminate\Support\Facades\Auth;
 
 class LeaveRequestController extends Controller
 {
@@ -14,6 +15,20 @@ class LeaveRequestController extends Controller
     public function index()
     {
         //
+        if(!Auth::user()) {
+            abort('403', 'unauthorized access');
+        }
+        $leave_request = Leave_request::all();
+        return view("pages.leave.index", compact('leave_request'));
+    }
+
+    public function manage() {
+        if(!Auth::user() && Auth::user()->role !== 'manager') {
+            abort('403', 'unauthorized access');
+        }
+
+        $leave_request = Leave_request::all();
+        return view("pages.leave.manage", compact('leave_request'));
     }
 
     /**
@@ -22,6 +37,11 @@ class LeaveRequestController extends Controller
     public function create()
     {
         //
+        if(!Auth::user()) {
+            abort('403', 'unauthorized access');
+        }
+
+        return view('pages.leave.create');
     }
 
     /**
@@ -30,6 +50,15 @@ class LeaveRequestController extends Controller
     public function store(StoreLeave_requestRequest $request)
     {
         //
+        if(!Auth::user()) {
+            abort('403', 'unauthorized access');
+        }
+
+        $validated = $request->validated();
+
+        Leave_request::create($validated);
+
+        return view('pages.leave.index');
     }
 
     /**
