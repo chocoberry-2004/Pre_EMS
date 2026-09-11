@@ -12,7 +12,7 @@ class UpdateLeave_requestRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->user() !== null;
     }
 
     /**
@@ -23,7 +23,10 @@ class UpdateLeave_requestRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'leave_type' => ['required', 'in:annual,sick,casual,emergency'],
+            'reason' => ['nullable', 'string', 'max:2000'],
+            'start_date' => ['required', 'date', 'after_or_equal:today'],
+            'end_date' => ['required', 'date', 'after_or_equal:start_date'],
         ];
     }
 }

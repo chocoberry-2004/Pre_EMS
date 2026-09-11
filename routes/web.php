@@ -30,11 +30,15 @@ Route::middleware(['auth', 'manager'])->prefix('employee')->name('employee.')->g
 
 Route::middleware(['auth'])->prefix('leave')->name('leave.')->group(function() {
     Route::get("/", [LeaveRequestController::class, 'index'])->name('index');
-    Route::get("/create", [LeaveRequestController::class, 'create'])->name('create');
     Route::post("/", [LeaveRequestController::class, 'store'])->name('store');
-    Route::get("/show/{leave}", [LeaveRequestController::class, 'show'])->name('show');
-    Route::get("/edit/{leave}", [LeaveRequestController::class, 'edit'])->name('edit');
-    Route::put("/{leave}", [LeaveRequestController::class, 'update'])->name('update');
+    Route::get("/{leave}", [LeaveRequestController::class, 'show'])->whereNumber('leave')->name('show');
+    Route::put("/{leave}", [LeaveRequestController::class, 'update'])->whereNumber('leave')->name('update');
+});
+
+Route::middleware(['auth', 'manager'])->prefix('leave')->name('leave.')->group(function() {
+    Route::get('/manage', [LeaveRequestController::class, 'manage'])->name('manage');
+    Route::patch('/{leave}/approve', [LeaveRequestController::class, 'approve'])->name('approve');
+    Route::patch('/{leave}/reject', [LeaveRequestController::class, 'reject'])->name('reject');
 });
 
 
